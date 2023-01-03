@@ -8,7 +8,7 @@ include("include/connection.php");
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="col-md-8 offset-md-2">
 				<h2 class="text-center text-dark mt-5">All Bills</h2>
 				<div class="card my-5">
 					<div class="row">
@@ -29,7 +29,6 @@ include("include/connection.php");
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Sr:</th>
 									<th>Image</th>
 									<th>Reading</th>
 									<th>Meter No.</th>
@@ -38,21 +37,18 @@ include("include/connection.php");
 							</thead>
 							<tbody>
 								<?php
-								$count = 1;
 								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id";
 								$query_run = mysqli_query($conn, $query);
 								if ($query_run->num_rows > 0) {
 									while ($row = $query_run->fetch_assoc()) {
 								?>
 										<tr>
-											<td><?php echo $count ?></td>
 											<td><img width="50px" height="50px" src="<?php echo $row['reading_img'] ?>"></td>
 											<td><?php echo $row['reading']; ?></td>
 											<td><?php echo $row['meeternumber'] ?></td>
 											<td><?php echo $row['calculated_bill']; ?></td>
 										</tr>
 								<?php
-										$count++;
 									}
 								}
 								?>

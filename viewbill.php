@@ -1,5 +1,6 @@
 <?php
 include("include/connection.php");
+$meterid = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,31 +28,34 @@ include("include/connection.php");
 						</div>
 					</div>
 					<div class="card-body cardbody-color p-lg-5" id="fetchmessage">
-						<table class="table table-striped">
+                    <table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Meter Number</th>
-									<th>Consumer Name</th>
-									<th>Action</th>
+									<th>Image</th>
+									<th>Reading</th>
+									<th>Meter No.</th>
+									<th>Total Bill</th>
+                                    <th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$query = "SELECT * FROM meeters";
+								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id WHERE meeters = $meterid";
 								$query_run = mysqli_query($conn, $query);
-								if (mysqli_num_rows($query_run) > 1) {
-									while ($row =  mysqli_fetch_assoc($query_run)) {
+								if ($query_run->num_rows > 0) {
+									while ($row = $query_run->fetch_assoc()) {
 								?>
 										<tr>
+											<td><img width="50px" height="50px" src="<?php echo $row['reading_img'] ?>"></td>
+											<td><?php echo $row['reading']; ?></td>
 											<td><?php echo $row['meeternumber'] ?></td>
-											<td><?php echo $row['customername'] ?></td>
-											<td><a href="viewbill.php?id=<?php echo $row['id']?>" class="viewbutton btn btn-success btn-sm">View More</a></td>
+											<td><?php echo $row['calculated_bill']; ?></td>
+                                            <td><button class="btn btn-small btn-success">Download</button></td>
 										</tr>
 								<?php
 									}
 								}
 								?>
-
 							</tbody>
 						</table>
 					</div>
