@@ -1,23 +1,5 @@
 <?php
-include("include/connection.php");
-if (isset($_POST['submit_bill'])) {
-	$year = $_POST['year'];
-	$month = $_POST['month'];
-	$units = $_POST['total_units'];
-	$img = $_FILES['bill_image'];
-	$filename = $img['name'];
-	$filetmp = $img['tmp_name'];
-	$fileext = explode('.', $filename);
-	$filecheck = strtolower(end($fileext));
-	$fileextstored = array('png', 'jpg', 'jpeg');
-	if (in_array($filecheck, $fileextstored)) {
-		$destinationfile = 'upload/' . $filename;
-		move_uploaded_file($filetmp, $destinationfile);
-	}
-	$query = "INSERT INTO `gepcobill`( `year`, `month`, `bill_image`, `total_units`) VALUES ('$year','$month','$destinationfile','$units')";
-	$query_run =  mysqli_multi_query($conn, $query);
-	header("location:addgebcobill.php");
-}
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +17,8 @@ if (isset($_POST['submit_bill'])) {
 </head>
 
 <body>
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
@@ -55,9 +39,22 @@ if (isset($_POST['submit_bill'])) {
 							<a href="allbill.php" class="btn btn-primary btn-block">All Bills</a>
 						</div>
 					</div>
+				
 
-					<form method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
-						<div class="mb-3">
+					<form action="addBill.php" method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
+					<?php
+					if (isset($_SESSION['status'])) {
+					?>
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<?php echo $_SESSION['status']; ?>
+						</div>
+					<?php
+
+						session_unset();
+					}
+					?>	
+					<div class="mb-3">
 							<label>Year</label>
 							<select required class="form-control" name="year">
 								<option value="">Select Year</option>
@@ -100,6 +97,7 @@ if (isset($_POST['submit_bill'])) {
 			</div>
 		</div>
 	</div>
+
 </body>
 
 </html>
