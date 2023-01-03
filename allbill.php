@@ -39,19 +39,16 @@ include("include/connection.php");
 							<tbody>
 								<?php
 								$count = 1;
-								$query = "SELECT * FROM newbill 
-						        INNER JOIN meeters ON newbill.meeters = meeters.id 
-						        INNER JOIN gepcobill ON
-						        gepcobill.id = newbill.gepcobill
-						        ";
+								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id";
 								$query_run = mysqli_query($conn, $query);
-								if (mysqli_num_rows($query_run) > 1) {
-									while ($row =  mysqli_fetch_assoc($query_run)) {
+								if ($query_run->num_rows > 0) {
+									while ($row = $query_run->fetch_assoc()) {
 								?>
-										<h2><?php echo $reading; ?></h2>
 										<tr>
 											<td><?php echo $count ?></td>
+											<td><img width="50px" height="50px" src="<?php echo $row['reading_img'] ?>"></td>
 											<td><?php echo $row['reading']; ?></td>
+											<td><?php echo $row['meeternumber'] ?></td>
 											<td><?php echo $row['calculated_bill']; ?></td>
 										</tr>
 								<?php
