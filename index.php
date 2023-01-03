@@ -28,7 +28,7 @@ session_start();
 						</div>
 					</div>
 					<form action="bill_data.php" method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
-					<?php
+						<?php
 						if (isset($_SESSION['status'])) {
 						?>
 							<div class="alert alert-success alert-dismissible">
@@ -49,7 +49,7 @@ session_start();
 								$run_monthquery = mysqli_query($conn, $month_query);
 								while ($row = mysqli_fetch_assoc($run_monthquery)) {
 								?>
-									<option value="<?php echo $row["id"]?>"><?php echo $row["month"] . "(" . $row["year"] . ")" ?></option>
+									<option value="<?php echo $row["id"] ?>"><?php echo $row["month"] . "(" . $row["year"] . ")" ?></option>
 								<?php
 								}
 								?>
@@ -64,7 +64,7 @@ session_start();
 								$run_meterquery = mysqli_query($conn, $meter_query);
 								while ($row1 = mysqli_fetch_assoc($run_meterquery)) {
 								?>
-									<option value="<?php echo $row1["id"]?>"><?php echo $row1["meeternumber"] . "(" . $row1["customername"] . ")" ?></option>
+									<option value="<?php echo $row1["id"] ?>"><?php echo $row1["meeternumber"] . "(" . $row1["customername"] . ")" ?></option>
 								<?php
 								}
 								?>
@@ -72,12 +72,11 @@ session_start();
 						</div>
 						<div class="mb-3">
 							<label>Reading Image</label>
-							<input style="height: 45px;" required type="file" class="form-control" 
-							name="reading_img" accept="image/png, image/gif, image/jpeg"  aria-describedby="emailHelp" placeholder="User Name">
+							<input style="height: 45px;" required type="file" class="form-control" name="reading_img" accept="image/png, image/gif, image/jpeg" aria-describedby="emailHelp" placeholder="User Name">
 						</div>
 						<div class="mb-3">
 							<label>Enter Reading</label>
-							<input name="reading" required type="text" class="form-control"placeholder="Reading">
+							<input name="reading" required type="text" class="form-control" placeholder="Reading">
 						</div>
 						<div class="text-center"><button type="submit" name="bill_button" class="btn btn-color px-5 mb-5 w-100">Submit</button></div>
 					</form>

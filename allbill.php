@@ -1,3 +1,6 @@
+<?php
+include("include/connection.php");
+?>
 <!DOCTYPE html>
 <html>
 <?php include("include/head.php"); ?>
@@ -22,23 +25,43 @@
 							<a href="allbill.php" class="btn btn-success btn-block">All Bills</a>
 						</div>
 					</div>
-					<form class="card-body cardbody-color p-lg-5">
-						<div class="mb-3">
-							<label>Select Meeter</label>
-							<select required class="form-control" name="meeter">
-								<option value="">Select Meeter</option>
-							</select>
-						</div>
-						<div class="mb-3">
-							<label>Reading Image</label>
-							<input style="height: 45px;" required type="file" class="form-control" id="Username" aria-describedby="emailHelp" placeholder="User Name">
-						</div>
-						<div class="mb-3">
-							<label>Enter Reading</label>
-							<input required type="text" class="form-control" id="password" placeholder="Reading">
-						</div>
-						<div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Submit</button></div>
-					</form>
+					<div class="card-body cardbody-color p-lg-5">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Sr:</th>
+									<th>Image</th>
+									<th>Reading</th>
+									<th>Meter No.</th>
+									<th>Total Bill</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$count = 1;
+								$query = "SELECT * FROM newbill 
+						        INNER JOIN meeters ON newbill.meeters = meeters.id 
+						        INNER JOIN gepcobill ON
+						        gepcobill.id = newbill.gepcobill
+						        ";
+								$query_run = mysqli_query($conn, $query);
+								if (mysqli_num_rows($query_run) > 1) {
+									while ($row =  mysqli_fetch_assoc($query_run)) {
+								?>
+										<h2><?php echo $reading; ?></h2>
+										<tr>
+											<td><?php echo $count ?></td>
+											<td><?php echo $row['reading']; ?></td>
+											<td><?php echo $row['calculated_bill']; ?></td>
+										</tr>
+								<?php
+										$count++;
+									}
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
