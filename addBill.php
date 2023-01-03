@@ -22,4 +22,3 @@ if (isset($_POST['submit_bill'])) {
 		header("location:addgebcobill.php");
 	}
 }
-?>

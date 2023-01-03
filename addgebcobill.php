@@ -1,10 +1,8 @@
 <?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Electricity</title>
 	<meta charset="utf-8">
@@ -15,10 +13,7 @@ session_start();
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-
 <body>
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
@@ -39,22 +34,20 @@ session_start();
 							<a href="allbill.php" class="btn btn-primary btn-block">All Bills</a>
 						</div>
 					</div>
-				
-
 					<form action="addBill.php" method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
-					<?php
-					if (isset($_SESSION['status'])) {
-					?>
-						<div class="alert alert-success alert-dismissible">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<?php echo $_SESSION['status']; ?>
-						</div>
-					<?php
+						<?php
+						if (isset($_SESSION['status'])) {
+						?>
+							<div class="alert alert-success alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+								<?php echo $_SESSION['status']; ?>
+							</div>
+						<?php
 
-						session_unset();
-					}
-					?>	
-					<div class="mb-3">
+							session_unset();
+						}
+						?>
+						<div class="mb-3">
 							<label>Year</label>
 							<select required class="form-control" name="year">
 								<option value="">Select Year</option>
