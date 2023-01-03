@@ -49,7 +49,7 @@ session_start();
 								$run_monthquery = mysqli_query($conn, $month_query);
 								while ($row = mysqli_fetch_assoc($run_monthquery)) {
 								?>
-									<option value="<?php echo $row["month"]?>"><?php echo $row["month"] . "(" . $row["year"] . ")" ?></option>
+									<option value="<?php echo $row["id"]?>"><?php echo $row["month"] . "(" . $row["year"] . ")" ?></option>
 								<?php
 								}
 								?>
@@ -64,7 +64,7 @@ session_start();
 								$run_meterquery = mysqli_query($conn, $meter_query);
 								while ($row1 = mysqli_fetch_assoc($run_meterquery)) {
 								?>
-									<option value="<?php echo $row1["meeternumber"]?>"><?php echo $row1["meeternumber"] . "(" . $row1["customername"] . ")" ?></option>
+									<option value="<?php echo $row1["id"]?>"><?php echo $row1["meeternumber"] . "(" . $row1["customername"] . ")" ?></option>
 								<?php
 								}
 								?>
