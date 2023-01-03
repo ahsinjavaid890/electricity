@@ -3,16 +3,8 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Electricity</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+<?php include("include/head.php"); ?>
+
 <body>
 	<div class="container">
 		<div class="row">
@@ -34,7 +26,7 @@ session_start();
 							<a href="allbill.php" class="btn btn-primary btn-block">All Bills</a>
 						</div>
 					</div>
-					<form action="addBill.php" method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
+					<form action="addGepcoBill_data.php" method="post" enctype="multipart/form-data" class="card-body cardbody-color p-lg-5">
 						<?php
 						if (isset($_SESSION['status'])) {
 						?>
@@ -82,7 +74,11 @@ session_start();
 						</div>
 						<div class="mb-3">
 							<label>Total Units</label>
-							<input name="total_units" required type="text" class="form-control" id="password" placeholder="Reading">
+							<input name="total_units" required type="text" class="form-control" placeholder="Reading">
+						</div>
+						<div class="mb-3">
+							<label>Total Bill</label>
+							<input name="total_bil" required type="text" class="form-control" placeholder="Total">
 						</div>
 						<div class="text-center"><button type="submit" name="submit_bill" class="btn btn-color px-5 mb-5 w-100">Submit</button></div>
 					</form>
