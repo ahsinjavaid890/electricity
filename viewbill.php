@@ -42,7 +42,7 @@ $meterid = $_GET['id'];
 							</thead>
 							<tbody>
 								<?php
-								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE meeters = $meterid";
+								$query = "SELECT newbill.id, newbill.reading_img, reading , meeters , month,year,calculated_bill FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE meeters = $meterid";
 								$query_run = mysqli_query($conn, $query);
 								if ($query_run->num_rows > 0) {
 									while ($row = $query_run->fetch_assoc()) {

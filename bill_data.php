@@ -5,6 +5,7 @@ if (isset($_POST['bill_button'])) {
 	$billmonth = $_POST['billmonth'];
 	$meter = $_POST['meter'];
 	$reading = $_POST['reading'];
+    $date = date("d-M-Y");
 
 	$costquery = "SELECT perUnitCost FROM gepcobill WHERE `id`='$billmonth'";
 	$costquery_run = mysqli_query($conn,$costquery);
@@ -22,7 +23,7 @@ if (isset($_POST['bill_button'])) {
 		$destinationfile = 'upload/' . $filename;
 		move_uploaded_file($filetmp, $destinationfile);
 	}
-	$query = "INSERT INTO `newbill`(`gepcobill`,`meeters`,`reading_img`,`reading`,`calculated_bill`) VALUES ('$billmonth','$meter','$destinationfile','$reading','$calculated_bill')";
+	$query = "INSERT INTO `newbill`(`gepcobill`,`meeters`,`reading_img`,`reading`,`calculated_bill`,`created_at`) VALUES ('$billmonth','$meter','$destinationfile','$reading','$calculated_bill','$date')";
 	$query_run =  mysqli_multi_query($conn, $query);
 	if ($query_run) {
 		$_SESSION['status'] = "New Bill Submitted Successfully!";

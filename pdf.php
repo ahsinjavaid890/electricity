@@ -1,11 +1,12 @@
 <?php
 require('vendor/autoload.php');
 include("include/connection.php");
-echo $bill_id = $_GET['id'];
+$bill_id = $_GET['id'];
 
-$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id";
+$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE newbill.id = $bill_id";
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)>0){
+  while($row=mysqli_fetch_assoc($result)){
 	$html='<style>
 	*{
 		box-sizing: border-box;
@@ -56,9 +57,8 @@ if(mysqli_num_rows($result)>0){
 		color: white;
 	  }
 	</style>
-	<h1 class="CName">Gepco</h1>
-	<h4 class="address">Peoples Colony</h4>
-	<h4 class="contact">+92 35 478 754</h4>
+	<h1 class="CName">Electricity Bill</h1>
+	<h4 class="address">Flat No. '.$row['meeternumber'].'</h4>
 
 	<table id="customers">
   <tr>
@@ -67,23 +67,17 @@ if(mysqli_num_rows($result)>0){
     
   </tr>
   <tr>
-    <td>Name</td>
-    <td> </td>
+    <td>Consumer Name</td>
+    <td>'.$row['customername'].' </td>
    
   </tr>
   <tr>
-    <td>Phone</td>
-    <td> </td>
+    <td>Meter No.</td>
+    <td>'.$row['meeternumber'].' </td>
    
   </tr>
-  <tr>
-    <td>Email</td>
-    <td> </td>
-   
-  </tr>
-  <tr>
-    <td>Period</td>
-    <td> </td>
+  
+
     
  
 </table>
@@ -92,37 +86,23 @@ if(mysqli_num_rows($result)>0){
   <tr>
     <th style="width: 20%;">Bill</th>
     <th>Detail</th>
-    
   </tr>
   <tr>
     <td>Bill No.</td>
-    <td></td>
-   
+    <td>'.$row['id'].'</td>
   </tr>
   <tr>
     <td>Bill Date</td>
-    <td></td>
-   
+    <td>'.$row['created_at'].'</td>
   </tr>
   <tr>
-    <td>Bill Due Date</td>
-    <td></td>
-   
+    <td>Billing Month</td>
+    <td>'.$row['month'].'</td>
   </tr>
   <tr>
-    <td>Bill Month</td>
-    <td></td>
-   
-  </tr>
-  <tr>
-    <td>Other Charges</td>
-    <td></td>
+    <td>Billing Year</td>
+    <td>'.$row['year'].'</td>
     </tr>
-  <tr>
-    <td>Sanction Load(KW)</td>
-    <td></td>
-    </tr>
- 
 </table>
 
 <table id="customers">
@@ -132,45 +112,34 @@ if(mysqli_num_rows($result)>0){
   <tr >
     <td rowspan="2">Current</td>
     <td class="read">Reading</td>
-    <td> </td>
+    <td>'.$row['reading'].'</td>
   </tr>
   <tr>
     <td >Date</td>
-    <td></td>
-    
-   
-  </tr>
-  <tr >
-    <td rowspan="2">Current</td>
-    <td class="read">Reading</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td >Date</td>
-    <td></td>
+    <td>'.$row['created_at'].'</td>
     
    
   </tr>
   <tr>
-    <td colspan="2">Consumptions</td>
-    <td></td>
+    <td colspan="2">Unit Price</td>
+    <td>'.$row['perUnitCost'].'</td>
     
    
   </tr>
   <tr>
-    <td colspan="2">Price Unit</td>
-    <td></td>
+    <td colspan="2">Total Bill</td>
+    <td>'.$row['calculated_bill'].'</td>
     
     </tr>
   
  
 </table>
 	<table class="table">';
-		$html.='<tr><td>Bill Id</td><td>Reading</td><td>Total Bill</td><td>Per Unit Cost</td> <td>Meter No.</td></tr>';
-		while($row=mysqli_fetch_assoc($result)){
-			$html.='<tr><td>'.$row['id'].'</td><td>'.$row['reading'].'</td><td>'.$row['calculated_bill'].'</td>
-      <td>'.$row['perUnitCost'].'</td>
-      <td>'.$row['meeternumber'].'</td>
+		$html.='<tr><td></td><td> </td><td>  </td> <td> </td></tr>';
+
+			$html.='<tr><td></td><td></td>
+      <td></td>
+      <td></td>
       </tr>';
 		}
 	$html.='</table>';
@@ -181,3 +150,4 @@ $mpdf=new \Mpdf\Mpdf();
 $mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'D');
+?>
