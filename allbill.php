@@ -32,12 +32,15 @@ include("include/connection.php");
 									<th>Image</th>
 									<th>Reading</th>
 									<th>Meter No.</th>
+									<th>Month</th>
+									<th>Year</th>
 									<th>Total Bill</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id";
+								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id";
 								$query_run = mysqli_query($conn, $query);
 								if ($query_run->num_rows > 0) {
 									while ($row = $query_run->fetch_assoc()) {
@@ -46,7 +49,10 @@ include("include/connection.php");
 											<td><img width="50px" height="50px" src="<?php echo $row['reading_img'] ?>"></td>
 											<td><?php echo $row['reading']; ?></td>
 											<td><?php echo $row['meeternumber'] ?></td>
+											<td><?php echo $row['month']?></td>
+											<td><?php echo $row['year']?></td>
 											<td><?php echo $row['calculated_bill']; ?></td>
+											<td><a href="pdf.php" class="btn btn-success btn-sm">Download</a></td>
 										</tr>
 								<?php
 									}

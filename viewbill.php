@@ -31,16 +31,18 @@ $meterid = $_GET['id'];
                     <table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Image</th>
+								    <th>Image</th>
 									<th>Reading</th>
 									<th>Meter No.</th>
+									<th>Month</th>
+									<th>Year</th>
 									<th>Total Bill</th>
-                                    <th>Action</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id WHERE meeters = $meterid";
+								$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE meeters = $meterid";
 								$query_run = mysqli_query($conn, $query);
 								if ($query_run->num_rows > 0) {
 									while ($row = $query_run->fetch_assoc()) {
@@ -48,9 +50,11 @@ $meterid = $_GET['id'];
 										<tr>
 											<td><img width="50px" height="50px" src="<?php echo $row['reading_img'] ?>"></td>
 											<td><?php echo $row['reading']; ?></td>
-											<td><?php echo $row['meeternumber'] ?></td>
+											<td><?php echo $row['meeters'] ?></td>
+											<td><?php echo $row['month']?></td>
+											<td><?php echo $row['year']?></td>
 											<td><?php echo $row['calculated_bill']; ?></td>
-                                            <td><button class="btn btn-small btn-success">Download</button></td>
+                                            <td><a href="pdf.php?id=<?php echo $row['id']?>" class="btn btn-sm btn-success">Download</a></td>
 										</tr>
 								<?php
 									}

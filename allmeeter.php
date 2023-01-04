@@ -45,7 +45,7 @@ include("include/connection.php");
 										<tr>
 											<td><?php echo $row['meeternumber'] ?></td>
 											<td><?php echo $row['customername'] ?></td>
-											<td><a href="viewbill.php?id=<?php echo $row['id']?>" class="viewbutton btn btn-success btn-sm">View More</a></td>
+											<td><a href="viewbill.php?id=<?php echo $row['id']?>" class="viewbutton btn btn-success btn-sm">View Bills</a></td>
 										</tr>
 								<?php
 									}
