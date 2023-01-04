@@ -3,7 +3,11 @@ require('vendor/autoload.php');
 include("include/connection.php");
 $bill_id = $_GET['id'];
 
+<<<<<<< HEAD
 $query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE newbill.id = $bill_id";
+=======
+echo $query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE newbill.id = 19";
+>>>>>>> 95a99f091742cd5dee80751315ef7d24eb06564e
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)>0){
   while($row=mysqli_fetch_assoc($result)){
