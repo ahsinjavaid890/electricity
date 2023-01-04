@@ -1,9 +1,9 @@
 <?php
 require('vendor/autoload.php');
 include("include/connection.php");
-echo $bill_id = $_GET['id'];
+$bill_id = $_GET['id'];
 
-$query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id";
+echo $query = "SELECT * FROM newbill INNER JOIN meeters ON newbill.meeters = meeters.id INNER JOIN gepcobill ON newbill.gepcobill = gepcobill.id WHERE newbill.id = 19";
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)>0){
 	$html='<style>
